@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="GymManagementSystemMVC.BLL/GymManagementSystemMVC.BLL.csproj" />
+  <Project Path="GymManagementSystemMVC.DAL/GymManagementSystemMVC.DAL.csproj" />
+  <Project Path="GymManagementSystemMVC.PL/GymManagementSystemMVC.PL.csproj" />
+</Solution>
