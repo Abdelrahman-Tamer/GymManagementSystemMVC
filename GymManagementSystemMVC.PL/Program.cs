@@ -1,3 +1,5 @@
+using GymManagementSystemMVC.BLL.Services.Classess;
+using GymManagementSystemMVC.BLL.Services.Interfaces;
 using GymManagementSystemMVC.DAL.DbContexts;
 using GymManagementSystemMVC.DAL.Repositories.Classes;
 using GymManagementSystemMVC.DAL.Repositories.Interfaces;
@@ -13,13 +15,15 @@ namespace GymManagementSystemMVC.PL
 
             // MVC services
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IMemberService, MemberService>();
 
             // Register the DbContext
             builder.Services.AddDbContext<GYMDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //   Register our repositories
-            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //builder.Services.AddScoped<IPlanRepository, PlanRepository>();
             //builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 
             var app = builder.Build();
