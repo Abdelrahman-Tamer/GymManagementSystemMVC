@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Enums
-    {
+{
     public enum Specialites
-        {
-        GeneralFitness = 1 ,
+    {
+        GeneralFitness = 1,
         Yoga = 2,
         Boxing = 3,
         CrossFit = 4
-        }
     }
+}

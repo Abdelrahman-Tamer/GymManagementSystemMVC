@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     public class MemberShipConfigurations : IEntityTypeConfiguration<MemberShip>
+    {
+        public void Configure(EntityTypeBuilder<MemberShip> builder)
         {
-        public void Configure( EntityTypeBuilder<MemberShip> builder )
-            {
             builder.HasKey(m => m.Id);
 
             builder.Property(x => x.CreatedAt)
@@ -28,6 +28,6 @@ namespace GymManagementSystemMVC.DAL.Configuration
                 .WithMany(m => m.MemberPlans)
                 .HasForeignKey(m => m.MemberId)
                 .OnDelete(DeleteBehavior.Cascade);
-            }
         }
     }
+}

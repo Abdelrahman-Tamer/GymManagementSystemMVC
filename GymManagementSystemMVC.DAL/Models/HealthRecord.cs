@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Models
+{
+    public class HealthRecord : BaseEntity
     {
-    public class HealthRecord : BaseEntity 
-        {
-        
 
-        public decimal Height { get; set; }   
-        public decimal Weight { get; set; }   
+
+        public decimal Height { get; set; }
+        public decimal Weight { get; set; }
 
         [Required, MaxLength(5)]
         public string BloodType { get; set; } = default!;
@@ -24,5 +24,5 @@ namespace GymManagementSystemMVC.DAL.Models
 
         public int MemberId { get; set; }
         public Member Member { get; set; } = default!;
-        }
     }
+}

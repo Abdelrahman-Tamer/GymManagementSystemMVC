@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     internal class CategoryConfigurations : IEntityTypeConfiguration<Category>
+    {
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
-        public void Configure( EntityTypeBuilder<Category> builder )
-            {
             builder.Property(c => c.CategoryName)
                 .HasColumnType("varchar")
                 .HasMaxLength(20);
@@ -25,6 +25,6 @@ namespace GymManagementSystemMVC.DAL.Configuration
                 new Category { Id = 5, CategoryName = "CrossFit" }
             );
 
-            }
         }
     }
+}

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.BLL.ViewModels.MemberViewModels
-    {
+{
     public class MemberViewModel
-        {
+    {
         public int Id { get; set; }
         public string? Photo { get; set; }
         public string Name { get; set; } = null!;
@@ -21,5 +21,5 @@ namespace GymManagementSystemMVC.BLL.ViewModels.MemberViewModels
         public string? PlanName { get; set; }
         public string? MemberShipStartDate { get; set; }
         public string? MemberShipEndDate { get; set; }
-        }
     }
+}

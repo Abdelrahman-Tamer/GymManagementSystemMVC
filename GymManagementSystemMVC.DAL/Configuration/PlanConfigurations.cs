@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     public class PlanConfigurations : IEntityTypeConfiguration<Plan>
+    {
+        public void Configure(EntityTypeBuilder<Plan> builder)
         {
-        public void Configure( EntityTypeBuilder<Plan> builder )
-            {
             builder.Property(x => x.Name)
                 .HasColumnType("varchar")
                 .HasMaxLength(50);
@@ -30,6 +30,6 @@ namespace GymManagementSystemMVC.DAL.Configuration
             {
                 tb.HasCheckConstraint("PlanDurationCheck", "DurationInDays Between 1 and 365");
             });
-            }
         }
     }
+}

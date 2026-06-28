@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.BLL.ViewModels.MemberViewModels
-    {
+{
     public class HealthRecordViewModel
-        {
+    {
         [Range(0.1, 300, ErrorMessage = "Height must be greater than 0")]
         public decimal Height { get; set; }
 
@@ -19,5 +19,5 @@ namespace GymManagementSystemMVC.BLL.ViewModels.MemberViewModels
         [StringLength(3, ErrorMessage = "Blood type must be 3 characters or less")]
         public string BloodType { get; set; } = default!;
         public string? Note { get; set; } = default!;
-        }
     }
+}

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Models
-    {
+{
     public abstract class GymUser : BaseEntity
-        {
+    {
         [Required, MaxLength(50)]
         public string Name { get; set; } = null!;
 
@@ -23,10 +23,10 @@ namespace GymManagementSystemMVC.DAL.Models
         public DateOnly DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public Address Address { get; set; } = null!;
-        }
+    }
     [Owned]
     public class Address
-        {
+    {
         public int BuildingNumber { get; set; }
 
         [Required, MaxLength(30)]
@@ -34,5 +34,5 @@ namespace GymManagementSystemMVC.DAL.Models
 
         [Required, MaxLength(30)]
         public string Street { get; set; } = null!;
-        }
     }
+}

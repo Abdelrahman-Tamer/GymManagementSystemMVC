@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     public class BookingConfigurations : IEntityTypeConfiguration<Booking>
+    {
+        public void Configure(EntityTypeBuilder<Booking> builder)
         {
-            public void Configure(EntityTypeBuilder<Booking> builder )
-            {
             builder.Ignore(b => b.Id);
 
             builder.Property(x => x.CreatedAt)
@@ -29,6 +29,6 @@ namespace GymManagementSystemMVC.DAL.Configuration
                 .HasForeignKey(x => x.MemberId);
             builder.HasKey(x => new { x.MemberId, x.SessionId });
             #endregion
-            }
         }
     }
+}

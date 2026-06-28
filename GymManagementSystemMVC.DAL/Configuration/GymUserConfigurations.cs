@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     public class GymUserConfigurations<T> : IEntityTypeConfiguration<T> where T : GymUser
+    {
+        public void Configure(EntityTypeBuilder<T> builder)
         {
-        public void Configure( EntityTypeBuilder<T> builder )
-            {
             builder.Property(x => x.Name)
                 .HasColumnType("varchar")
                 .HasMaxLength(50);
@@ -44,6 +44,6 @@ namespace GymManagementSystemMVC.DAL.Configuration
                 t.HasCheckConstraint("GymUser_EmailCheck", "Email LIKE '_%@_%.__%'");
                 t.HasCheckConstraint("GymUser_PhoneCheck", "[Phone] LIKE '010%' OR [Phone] LIKE '011%' OR [Phone] LIKE '012%' OR [Phone] LIKE '015%'");
             });
-            }
         }
     }
+}

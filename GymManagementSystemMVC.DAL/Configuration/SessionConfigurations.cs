@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Configuration
-    {
+{
     public class SessionConfigurations : IEntityTypeConfiguration<Session>
+    {
+        public void Configure(EntityTypeBuilder<Session> builder)
         {
-        public void Configure( EntityTypeBuilder<Session> builder )
-            {
-            builder.ToTable(T =>
+            builder.ToTable("Session", T =>
             {
                 T.HasCheckConstraint("SessionCapacityConstraint", "Capacity Between 1 and 25");
                 T.HasCheckConstraint("SessionEndDateAfterStartDate", "EndDate>StartDate");
@@ -26,6 +26,8 @@ namespace GymManagementSystemMVC.DAL.Configuration
             builder.HasOne(x => x.Category)
                 .WithMany(x => x.Sessions)
                 .HasForeignKey(x => x.CategoryId);
-            }
+
+            builder.Ignore(x => x.Bookings);
         }
     }
+}

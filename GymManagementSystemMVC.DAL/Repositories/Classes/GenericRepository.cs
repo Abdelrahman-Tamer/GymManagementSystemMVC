@@ -1,59 +1,64 @@
-﻿using GymManagementSystemMVC.DAL.DbContexts;
+using GymManagementSystemMVC.DAL.DbContexts;
 using GymManagementSystemMVC.DAL.Models;
 using GymManagementSystemMVC.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagementSystemMVC.DAL.Repositories.Classes
-    {
+{
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
-        {
+    {
+        #region Fields
         private readonly GYMDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
-        public GenericRepository(GYMDbContext dbContext )
-            {
-                _dbContext = dbContext;
-                _dbSet = _dbContext.Set<TEntity>();
-            }
-        public async Task<int> AddAsync( TEntity entity )
-            {
-            _dbSet.Add(entity);
-            return await _dbContext.SaveChangesAsync();
-            }
+        #endregion
 
-        public Task<bool> AnyAsync( Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default )
-            =>_dbSet.AnyAsync(predicate, ct);
+        #region Constructor
+        public GenericRepository(GYMDbContext dbContext)
+        {
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<TEntity>();
+        }
+        #endregion
 
-        public async Task<int> DeleteAsync( TEntity entity )
-            {
-            _dbSet.Remove(entity);
-            return await _dbContext.SaveChangesAsync();
-            }
-
-        public async Task<TEntity?> FirstOrDefaultAsync( Expression<Func<TEntity, bool>> predicate, bool tracking, CancellationToken ct = default )
-            {
+        #region Queries
+        public async Task<IEnumerable<TEntity>> GetAllAsync(bool tracking = false, CancellationToken ct = default)
+        {
             IQueryable<TEntity> query = tracking ? _dbSet : _dbSet.AsNoTracking();
-            return await query.FirstOrDefaultAsync(predicate, ct);
-            }
+            return await query.ToListAsync(ct);
+        }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync( bool tracking = false, CancellationToken ct = default )
-            {
-            IQueryable<TEntity> Query = tracking ? _dbSet : _dbSet.AsNoTracking();
-            return await Query.ToListAsync(ct);
-            }
-
-        public async Task<TEntity?> GetByIdAsync( int id, CancellationToken ct = default )
+        public async Task<TEntity?> GetByIdAsync(int id, CancellationToken ct = default)
             => await _dbSet.FindAsync([id], ct);
 
-        public async Task<int> UpdateAsync( TEntity entity )
-            {
-                _dbSet.Update(entity);
-                return await _dbContext.SaveChangesAsync();
-            }
+        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
+            => _dbSet.AnyAsync(predicate, ct);
+
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, bool tracking, CancellationToken ct = default)
+        {
+            IQueryable<TEntity> query = tracking ? _dbSet : _dbSet.AsNoTracking();
+            return await query.FirstOrDefaultAsync(predicate, ct);
         }
+        #endregion
+
+        #region Commands
+        public async Task<int> AddAsync(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateAsync(TEntity entity)
+        {
+            _dbSet.Update(entity);
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAsync(TEntity entity)
+        {
+            _dbSet.Remove(entity);
+            return await _dbContext.SaveChangesAsync();
+        }
+        #endregion
     }
+}
